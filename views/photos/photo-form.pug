@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+  div(class="d-flex flex-row content mx-auto")
+    div(class="flex-fill")
+      form(class="card" action='/photos', method="post", enctype="multipart/form-data")
+          div(class="card-header") Ajouter un photo
+          div(class="card-body")
+              if successMessage
+                  div(class="alert alert-success")= successMessage
+
+              div(class="mb-4")
+                label(for="motCles") Mots-clé:
+                br
+                input(class="form-control" type="text", name="motCles", id="motCles" placeholder="Écrire le mots-clé")
+
+              div(class="mb-4")
+                label(for="description") Description:
+                br
+                textarea(class="form-control" name="description", id="description", rows="2" placeholder="Écrire le description du photo")
+
+              div(class="mb-4")
+                label(for="photofile") Choisissez une photo:
+                br
+                input(class="form-control" type="file", name="photofile", id="file")
+              if errors
+                  ul(class="my-2")
+                      each error in errors
+                          li(class="text-danger")= error
+              div(class="w-100")
+                  input(type="submit" value="Send" class="btn btn-primary ms-auto d-block")
+

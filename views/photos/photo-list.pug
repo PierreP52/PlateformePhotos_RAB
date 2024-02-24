@@ -1,0 +1,21 @@
+extends ../layout.pug
+
+block content
+  script(src="/javascripts/photos/photo.js")
+  div(class="d-flex flex-row content mx-auto")
+    div(class="flex-fill d-flex flex-column" id="photo-list-container")
+      form(class="mb-4", action="/photos/search", method="get")
+        div(class="input-group")
+          input(type="text", class="form-control", name="keyword", placeholder="Rechercher par mots-clés")
+          div(class="input-group-append")
+            button(type="submit", class="btn btn-primary") Rechercher
+      if photos
+        .row
+          each photo in photos
+            .col-md-4.mb-3
+              .card
+                a(href=`/photos/${photo._id}`, class="photo-link", data-photo-id=photo._id)
+                  img(class="card-img-top zoomable", src=`/uploads/${photo.photofile}`, alt=`${photo.description}`)
+                button(class="btn btn-danger", photoId=photo._id) Supprimer
+
+

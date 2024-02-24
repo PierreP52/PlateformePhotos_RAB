@@ -1,0 +1,21 @@
+
+extends ../layout
+
+block content
+  script(src="/javascripts/photos/photo.js")
+  script(src="/javascripts/commentaires/commentaire.js")
+  .container
+    h2 Édition de la photo
+    form(action=`/photos/${photo._id}`, method='post')
+      .mb-4
+        label(for='motCles') Mots-clé:
+        input(type='text', class='form-control', name='motCles', id='motCles', value=photo.motCles)
+      .mb-4
+        label(for='description') Description:
+        textarea(class='form-control', name='description', id='description', rows='4')= photo.description
+      
+      .mb-4
+        label(for="photofile") Choisissez une nouvelle photo: 
+        br
+        input(class="form-control" type="file", name="photofile", id="photofile")
+      button(type='submit', class='btn btn-primary mt-5') Sauvegarder

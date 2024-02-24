@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  
+  script(src="/javascripts/commentaires/commentaire.js")
+  .container
+    div(class="d-flex justify-content-center align-items-center")
+      .col-md-2
+
+      .col-md-4.align-self-start
+        .m-4 
+          .center-block
+            img(class="card-img-top", src=`/uploads/${photo.photofile}`, alt=`${photo.description}`)
+      .col-md-4.align-self-start
+        .m-4 
+          .center-block
+            h6 Date de téléchargement : &nbsp #{photo.date}
+            h5(class="card-title")= `"${photo.motCles}"`
+            p(class="card-text")= photo.description
+
+            div(class="comments-section mt-3")
+
+              form(method="POST", action=`/comments/comments`)
+                .form-group
+                  label(for="comment") Commentaires
+                  textarea(id="comment", name="comment", class="form-control")
+                  input(type="hidden", name="photoId", value=photo._id)
+                  button(type="submit", class="btn btn-primary mt-2") Ajouter un commentaire
+
+            ul(class="list-group" id="comment-list-container")  
+              include comment-list.pug 
+
+            div(class="d-flex justify-content-between mt-5")
+              a(class="btn btn-secondary", href=`/photos/edit/${photo._id}`) Modifier les données du photo
+              a(class="btn btn-primary", href="/photos") Retour aux photos
+              
+      .col-md-2
+        .m-2 
+          .center-block
